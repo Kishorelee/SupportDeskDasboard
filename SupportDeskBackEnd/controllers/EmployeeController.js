@@ -5,28 +5,28 @@ const jwt = require("jsonwebtoken");
 const createUser = async (req, res) => {
   const userData = req.body;
 
-  // Check if the username or email already exists
-  const existingUser = await EmployeeData.findOne({
-      $or: [{ username: userData.username }, { email: userData.email }],
-  });
+  try {
+    // Check if the username or email already exists
+    const existingUser = await EmployeeData.findOne({
+      $or: [{ userName: userData.userName }, { email: userData.email }],
+    });
 
-  if (existingUser) {
+    if (existingUser) {
       // User with the provided username or email already exists
       return res.status(400).json({
-          error: "Username or email already exists",
+        error: 'Username or email already exists',
       });
-  }
+    }
 
-  try {
-      // Create a new user if no existing user found
-      const newUser = await EmployeeData.create(userData);
-      res.status(201).json(newUser);
-      console.log("User is created");
+    // If the user does not exist, create a new user
+    const newUser = await EmployeeData.create(userData);
+    res.status(201).json(newUser);
+    console.log('User is created');
   } catch (error) {
-      console.error("Error occurred:", error);
-      res.status(500).json({
-          error: "SignUp Failed",
-      });
+    console.error('Error occurred:', error);
+    res.status(500).json({
+      error: 'SignUp Failed',
+    });
   }
 };
 const userData = async (req, res) => {
@@ -69,7 +69,7 @@ const userlogin = async (req, res) => {
   }
 };
 const generateToken =(id)=>{
-  var token = jwt.sign({id},process.env.Login_Key,{expiresIn:"30d"});
+  var token = jwt.sign({id},'shhhh',{expiresIn:"30d"});
   return token;
 } 
 
