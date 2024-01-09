@@ -1,2 +1,2 @@
 # SupportDeskDasboard
-# codes are aviable in master branch
+#Codes can be found in the master branch.
